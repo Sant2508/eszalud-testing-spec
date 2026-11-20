@@ -92,4 +92,32 @@ class CitaMedicaTest {
                 )
         );
     }
+    @Test
+    @DisplayName("Asignar estado PROGRAMADA por defecto cuando el estado es null")
+    void shouldAssignScheduledStatusWhenStatusIsNull() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-01",
+                "DOC-01",
+                "ESP-01",
+                LocalDateTime.of(2026, 12, 1, 10, 30),
+                "Control general",
+                null
+        );
+
+        assertEquals(EstadoCita.PROGRAMADA, cita.getEstado());
+    }
+    @Test
+    @DisplayName("Conservar el estado válido recibido al crear la cita")
+    void shouldKeepValidStatusWhenProvided() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-01",
+                "DOC-01",
+                "ESP-01",
+                LocalDateTime.of(2026, 12, 1, 10, 30),
+                "Control general",
+                EstadoCita.ATENDIDA
+        );
+
+        assertEquals(EstadoCita.ATENDIDA, cita.getEstado());
+    }
 }
